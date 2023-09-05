@@ -41,7 +41,7 @@ section{
     color: #fff;
     padding:0 0 0 20px;
     border-radius: 15px;
-    background-color: #C70039;
+    background-color: #900C3F;
     border: 2px solid #F8DE22;
 }
 .credit button{
@@ -56,6 +56,38 @@ section{
 }
 .credit button:active{
     transform: scale(.8);
+}
+
+.top .settings{
+    height: 5rem;
+    width: 15rem;
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    align-items: center;
+}
+.top img{
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+}
+
+.top img:nth-child(1){
+    transform: translateX(80px);
+}
+.top img:nth-child(2){
+    transform: translateX(40px);
+}
+.top img:not(:nth-child(3)){
+    height: 20px;
+    width: 20px;
+}
+.top img:nth-child(3){
+    z-index: 1;
+    background: #900C3F;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
 }
 .main-container{
     height: 300px;
