@@ -90,7 +90,7 @@ section{
     cursor: pointer;
 }
 .main-container{
-    height: 300px;
+    height: 18rem;
     width: 95%;
     position: relative;
     display: flex;
@@ -106,13 +106,21 @@ section{
     align-items: center;
 }
 .item{
-    height: 310px;
+    height: 50rem;
     width: 250px;
+    background-color: red;
     border: 3px solid #F8DE22;
+    border-bottom:none ;
+    border-top:none ;
     display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
     justify-content: center;
     align-items: center;
+    position: relative;
+    bottom: 16rem;
 }
+
 .item:nth-child(1){
     border-left: none;
 }
