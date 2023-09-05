@@ -8,9 +8,13 @@ const SLOT_ITEMS = {
 const BUTTON_SPIN = document.querySelector('#button-spin');
 const ITEM1 = document.getElementById('item1').querySelectorAll('img');
 
-ITEM1.forEach(x => {
-    x.src = SLOT_ITEMS.item5;
-});
 
 BUTTON_SPIN.addEventListener('click', ()=>{
+    randomItem(ITEM1);
 })
+let randomItem = (target)=>{
+    target.forEach(element => {
+        const RANDOM_ITEM = Math.floor(Math.random()*5) + 1;
+        element.src = SLOT_ITEMS[`item${RANDOM_ITEM}`]
+    });
+} 
