@@ -1,6 +1,10 @@
 const ICON_WIDTH = 250,
-      ICON_HEIGHT = 300,
-      NUM_ICON = 1,
-      TIME_PER_ICON = 100;
+  ICON_HEIGHT = 300,
+  TIME_PER_ICON = 100;
+  INDEXES_ICON = [0,0,0];
 
-document.getElementById('item1').style.backgroundPosition = `0 ${2*ICON_HEIGHT}px`
+const ITEMS = document.querySelectorAll('.item');
+
+const getRoll = ()=>{
+
+}
