@@ -90,45 +90,30 @@ section{
     cursor: pointer;
 }
 .main-container{
-    height: 18rem;
+    height: 200px;
     width: 95%;
-    position: relative;
-    display: flex;
     background-color: #C70039;
     border-radius: 50px;
-    justify-content: center;
-    overflow: hidden;
-}
-.items{
-    width: 90%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+}
+.main-container > .item{
+    height: 200px;
+    width: 250px;
+    background-image: url(icon/items.png);
+    background-repeat: repeat-y;
 }
 .item{
-    height: 50rem;
-    width: 250px;
-    border: 3px solid #F8DE22;
-    border-bottom:none ;
+    border: 5px solid #F8DE22;
     border-top:none ;
-    display: flex;
-    flex-direction: column;
-    gap: 3.5rem;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    bottom: 16rem;
+    border-bottom:none ;
 }
 
 .item:nth-child(1){
     border-left: none;
+    background-position: 0 -250px;
 }
 .item:nth-child(5){
     border-right: none;
-}
-img{
-    height: 200px;
-    width: 200px;
 }
 
 .spin-container{
