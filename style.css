@@ -90,14 +90,14 @@ section{
     cursor: pointer;
 }
 .main-container{
-    height: 200px;
+    height: 300px;
     width: 95%;
     background-color: #C70039;
     border-radius: 50px;
     display: flex;
 }
 .main-container > .item{
-    height: 200px;
+    height: 300px;
     width: 250px;
     background-image: url(icon/items.png);
     background-repeat: repeat-y;
@@ -110,7 +110,7 @@ section{
 
 .item:nth-child(1){
     border-left: none;
-    background-position: 0 -250px;
+    background-position: 0 -300px;
 }
 .item:nth-child(5){
     border-right: none;
