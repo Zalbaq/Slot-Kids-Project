@@ -25,3 +25,15 @@ const rollAll = () => {
   });
 };
 
+BTN_SPIN.addEventListener("click", () => {
+  rollAll();
+
+  BTN_SPIN.disabled = true;
+  BTN_SPIN.classList.remove("button-active");
+  BTN_SPIN.classList.add("button-disabled");
+  setTimeout(() => {
+    BTN_SPIN.disabled = false;
+    BTN_SPIN.classList.add("button-active");
+    BTN_SPIN.classList.remove("button-disabled");
+  }, 2000);
+});
