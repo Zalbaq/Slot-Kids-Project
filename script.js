@@ -18,3 +18,10 @@ const roll = (reel, offset = 0) => {
     backgroundPositionY + random * ICON_HEIGHT
   }px`;
 };
+const rollAll = () => {
+  const REEL_LIST = document.querySelectorAll(".main-container > .reel");
+  [...REEL_LIST].map((reel, i) => {
+    roll(reel, i);
+  });
+};
+
