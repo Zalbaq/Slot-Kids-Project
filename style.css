@@ -95,24 +95,24 @@ section{
     background-color: #C70039;
     border-radius: 50px;
     display: flex;
+    overflow: hidden;
 }
-.main-container > .item{
-    height: 300px;
+.main-container > .reel{
+    height: 3000px;
     width: 250px;
     background-image: url(icon/items.png);
     background-repeat: repeat-y;
-}
-.item{
     border: 5px solid #F8DE22;
     border-top:none ;
     border-bottom:none ;
 }
 
-.item:nth-child(1){
+.reel:nth-child(1){
     border-left: none;
-    background-position: 0 -300px;
+    background-position-y: 300px;
+    transition: background-position-y 1s ease;
 }
-.item:nth-child(5){
+.reel:nth-child(5){
     border-right: none;
 }
 
@@ -145,7 +145,16 @@ section{
     border-radius: 15px;
     font-size: 24px;
 }
-.spin-container > button{
+
+.bet button{
+    box-shadow: 5px 5px #F8DE22;
+
+}
+.bet > button:active{
+    transform: translate(5px,5px);
+    box-shadow: none;
+}
+.button-active{
     height: 50px;
     width: 200px;
     box-shadow: 10px 10px #F8DE22;
@@ -153,15 +162,16 @@ section{
     font-size: 24px;
     font-weight: 600;
 }
-.bet button{
-    box-shadow: 5px 5px #F8DE22;
-
-}
-.spin-container > button:active{
+.button-disabled{
+    height: 50px;
+    width: 200px;
     transform: translate(10px,10px);
+    border-radius: 15px;
+    font-size: 24px;
+    font-weight: 600;
     box-shadow: none;
 }
-.bet > button:active{
-    transform: translate(5px,5px);
+.button-active:active{
+    transform: translate(10px,10px);
     box-shadow: none;
 }
