@@ -1,8 +1,8 @@
-const ICON_WIDTH = 250,
-  ICON_HEIGHT = 300,
+const ICON_WIDTH = 100,
+  ICON_HEIGHT = 120,
   NUM_ICONS = 6,
   TIME_PER_ITEM = 50,
-  INDEXES = [0, 0, 0, 0, 0];
+  INDEXES = [0, 0, 0, 0, 0,0];
 
 const BTN_SPIN = document.querySelector("#button-spin");
 let widthDeviceElement = document.querySelector("#width-device");
