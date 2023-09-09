@@ -39,9 +39,9 @@ BTN_SPIN.addEventListener("click", () => {
   }, 2000);
 });
 
-  widthDeviceElement.textContent = widthDevice;
+//   widthDeviceElement.textContent = widthDevice;
 
-window.addEventListener("resize", () => {
-  let widthDevice = window.innerWidth;
-  widthDeviceElement.textContent = widthDevice;
-});
+// window.addEventListener("resize", () => {
+//   let widthDevice = window.innerWidth;
+//   widthDeviceElement.textContent = widthDevice;
+// });
