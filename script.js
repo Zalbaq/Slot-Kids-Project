@@ -5,6 +5,7 @@ const ICON_WIDTH = 250,
   INDEXES = [0, 0, 0, 0, 0];
 
 const BTN_SPIN = document.querySelector("#button-spin");
+let widthDeviceElement = document.querySelector("#width-device");
 
 const roll = (reel, offset = 0) => {
   const random =
@@ -36,4 +37,9 @@ BTN_SPIN.addEventListener("click", () => {
     BTN_SPIN.classList.add("button-active");
     BTN_SPIN.classList.remove("button-disabled");
   }, 2000);
+});
+
+window.addEventListener("resize", () => {
+  let widthDevice = window.innerWidth;
+  widthDeviceElement.textContent = widthDevice;
 });

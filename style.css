@@ -10,6 +10,10 @@ body{
     place-items: center;
     background-color: #900C3F;
 }
+/* 
+@media screen(max-width:480) {
+    
+} */
 section{
     height: 70vh;
     width: 70vw;
