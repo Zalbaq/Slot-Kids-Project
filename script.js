@@ -75,3 +75,10 @@ PLUS_BET.addEventListener("click", () => {
     BET.textContent = BETS[BET_NOW];
   }
 });
+
+MIN_BET.addEventListener("click", () => {
+  if (BET_NOW > 0) {
+    BET_NOW--;
+    BET.textContent = BETS[BET_NOW];
+  }
+});
