@@ -2,7 +2,16 @@ const ICON_WIDTH = 100,
   ICON_HEIGHT = 120,
   NUM_ICONS = 7,
   TIME_PER_ITEM = 50,
-  INDEXES = [0, 0, 0, 0, 0];
+  INDEXES = [0, 0, 0, 0, 0],
+  ICON_MAP = [
+    "star",
+    "diamond",
+    "none",
+    "watermellon",
+    "cherry",
+    "plum",
+    "lemon",
+  ];
 
 const BTN_SPIN = document.querySelector("#button-spin");
 let widthDeviceElement = document.querySelector("#width-device");
