@@ -12,11 +12,16 @@ const ICON_WIDTH = 100,
     "lemon",
     "star",
   ],
-  BET = [100000, 200000, 500000, 1000000, 2000000, 5000000, 15000000, 20000000];
+  BETS = [
+    100000, 200000, 500000, 1000000, 2000000, 5000000, 15000000, 20000000,
+  ];
 
-
+let credit = document.querySelector(".credit");
 const BTN_SPIN = document.querySelector("#button-spin");
-let widthDeviceElement = document.querySelector("#width-device");
+const PLUS_BET = document.querySelector("#plus-button"),
+  MIN_BET = document.querySelector("#min-button"),
+  BET = document.querySelector("#bet");
+let BET_NOW = 0;
 
 const roll = (reel, offset = 0) => {
   const delta =
@@ -62,4 +67,11 @@ BTN_SPIN.addEventListener("click", () => {
     BTN_SPIN.classList.add("button-active");
     BTN_SPIN.classList.remove("button-disabled");
   }, 2000);
+});
+
+PLUS_BET.addEventListener("click", () => {
+  if (BET_NOW < BETS.length) {
+    BET_NOW++;
+    BET.textContent = BETS[BET_NOW];
+  }
 });
