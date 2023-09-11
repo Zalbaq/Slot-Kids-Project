@@ -1,27 +1,29 @@
 const ICON_WIDTH = 100,
   ICON_HEIGHT = 120,
   NUM_ICONS = 7,
-  TIME_PER_ITEM = 50,
+  TIME_PER_ITEM = 25,
   INDEXES = [0, 0, 0, 0, 0],
   ICON_MAP = [
-    "diamond",
-    "none",
+    "jackpot",
     "watermellon",
     "cherry",
     "plum",
     "lemon",
     "star",
+    "diamond",
   ],
   BETS = [
     100000, 200000, 500000, 1000000, 2000000, 5000000, 15000000, 20000000,
   ];
+let INDEX_BET = 0;
 
-let credit = document.querySelector(".credit");
+let cash = 9000000000;
+const CREDIT_COMPONENT = document.querySelector(".credit");
+CREDIT_COMPONENT.textContent = cash;
 const BTN_SPIN = document.querySelector("#button-spin");
 const PLUS_BET = document.querySelector("#plus-button"),
   MIN_BET = document.querySelector("#min-button"),
   BET = document.querySelector("#bet");
-let BET_NOW = 0;
 
 const roll = (reel, offset = 0) => {
   const delta =
@@ -45,6 +47,7 @@ const roll = (reel, offset = 0) => {
     }, 6 + delta * TIME_PER_ITEM);
   });
 };
+
 const rollAll = () => {
   const REEL_LIST = document.querySelectorAll(".main-container > .reel");
 
@@ -52,11 +55,25 @@ const rollAll = () => {
     deltas.forEach(
       (delta, i) => (INDEXES[i] = (INDEXES[i] + delta) % NUM_ICONS)
     );
+    // INDEXES.map((index) => console.log(ICON_MAP[index]));
     INDEXES.map((index) => console.log(ICON_MAP[index]));
+    if (
+      (INDEXES[0] == INDEXES[1] || INDEXES[0] == INDEXES[1]) == INDEXES[2] ||
+      ((INDEXES[0] == INDEXES[1]) == INDEXES[2]) == INDEXES[3] ||
+      (((INDEXES[0] == INDEXES[1]) == INDEXES[2]) == INDEXES[3]) ==
+        INDEXES[4] ||
+      ((((INDEXES[0] == INDEXES[1]) == INDEXES[2]) == INDEXES[3]) ==
+        INDEXES[4]) ==
+        INDEXES[5]
+    ) {
+      console.log("winnnnn");
+    }
   });
 };
 
 BTN_SPIN.addEventListener("click", () => {
+  cash -= BETS[INDEX_BET];
+  CREDIT_COMPONENT.textContent = cash;
   rollAll();
 
   BTN_SPIN.disabled = true;
@@ -66,19 +83,19 @@ BTN_SPIN.addEventListener("click", () => {
     BTN_SPIN.disabled = false;
     BTN_SPIN.classList.add("button-active");
     BTN_SPIN.classList.remove("button-disabled");
-  }, 2000);
+  }, 1500);
 });
 
 PLUS_BET.addEventListener("click", () => {
-  if (BET_NOW < BETS.length) {
-    BET_NOW++;
-    BET.textContent = BETS[BET_NOW];
+  if (INDEX_BET < BETS.length - 1) {
+    INDEX_BET++;
+    BET.textContent = BETS[INDEX_BET];
   }
 });
 
 MIN_BET.addEventListener("click", () => {
-  if (BET_NOW > 0) {
-    BET_NOW--;
-    BET.textContent = BETS[BET_NOW];
+  if (INDEX_BET > 0) {
+    INDEX_BET--;
+    BET.textContent = BETS[INDEX_BET];
   }
 });
