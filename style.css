@@ -8,13 +8,12 @@ body{
     width: 100vw;
     display: grid;
     place-items: center;
-    background-color: #900C3F;
-    /* background: radial-gradient(circle, rgba(248,222,34,1) 25%, rgba(144,12,63,1) 89%); */
-    
+    background-color: #900C3F;    
 }
+/* For HP  720 x 425*/
 section{
-    height: 40vh;
-    width: 70vw;
+    height: 350px;
+    width: 650px;
     background-color: #F94C10;
     display: flex;
     flex-direction: column;
@@ -91,9 +90,11 @@ section{
     padding: 5px;
     cursor: pointer;
 }
+
+
 .main-container{
     height: 120px;
-    width: 95%;
+    width: 85%;
     background-color: #C70039;
     border-radius: 25px;
     display: flex;
