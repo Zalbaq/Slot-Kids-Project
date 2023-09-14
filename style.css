@@ -116,12 +116,9 @@ section{
 .reel:nth-child(1){
     border-left: none;
 }
-.reel:nth-child(5){
+.reel:nth-child(4){
     border-right: none;
 }
-
-
-
 
 .spin-container{
     padding: 0 50px;
