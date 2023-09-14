@@ -4,19 +4,19 @@ const ICON_WIDTH = 100,
   TIME_PER_ITEM = 25,
   INDEXES = [0, 0, 0, 0, 0],
   ICON_MAP = [
-    "jackpot",
     "watermellon",
     "cherry",
     "plum",
     "lemon",
     "star",
     "diamond",
+    "jackpot",
   ],
   BETS = [
     100000, 200000, 500000, 1000000, 2000000, 5000000, 15000000, 20000000,
   ];
 let INDEX_BET = 0;
-let cash = 9000000000;
+let cash = 9000000;
 
 const CREDIT_COMPONENT = document.querySelector(".credit");
 const BTN_SPIN = document.querySelector("#button-spin");
@@ -24,34 +24,37 @@ const PLUS_BET = document.querySelector("#plus-button"),
   MIN_BET = document.querySelector("#min-button"),
   BET = document.querySelector("#bet");
 
-let gacor = (random) => {
-  if (random >= 1 && random < 6) {
-    return 0;
-  } else if (random >= 6 && random < 13) {
-    return 1;
-  } else if (random >= 13 && random < 21) {
-    return 2;
-  } else if (random >= 21 && random < 30) {
-    return 3;
-  } else if (random >= 30 && random < 41) {
-    return 4;
-  } else if (random >= 41 && random < 53) {
-    return 5;
-  } else if (random >= 53 && random < 66) {
-    return 6;
-  } else if (random >= 66 && random < 80) {
-    return 7;
-  } else {
-    return 8;
-  }
-};
+function randomItems() {
+  const randomNumber = Math.random() * 100; // Angka acak dari 1 hingga 100
+  let digit;
 
-CREDIT_COMPONENT.textContent = cash;
+  if (randomNumber < 10) {
+    // 10% peluang untuk mendapatkan angka 6
+    digit = 6;
+  } else if (randomNumber < 25) {
+    // 15% peluang untuk mendapatkan angka 5
+    digit = 5;
+  } else if (randomNumber < 45) {
+    // 20% peluang untuk mendapatkan angka 4
+    digit = 4;
+  } else if (randomNumber < 70) {
+    // 25% peluang untuk mendapatkan angka 3
+    digit = 3;
+  } else if (randomNumber < 90) {
+    // 20% peluang untuk mendapatkan angka 2
+    digit = 2;
+  } else {
+    // 10% peluang untuk mendapatkan angka 0 atau 1
+    digit = Math.floor(Math.random() * 2);
+  }
+
+  return digit;
+}
+
+CREDIT_COMPONENT.textContent = convertRupiah(cash);
+// CREDIT_COMPONENT.textContent = cash;
 const roll = (reel, offset = 0) => {
-  let random = Math.round(Math.random() * 94);
-  // const delta =
-  //   (offset + 2) * NUM_ICONS + Math.round(Math.random() * NUM_ICONS);
-  const delta = (offset + 2) * NUM_ICONS + gacor(random);
+  const delta = (offset + 2) * NUM_ICONS + randomItems();
   const style = getComputedStyle(reel),
     backgroundPositionY = parseFloat(style["background-position-y"]),
     targetBackgroundPositionY = backgroundPositionY + delta * ICON_HEIGHT,
@@ -80,23 +83,11 @@ const rollAll = () => {
       (delta, i) => (INDEXES[i] = (INDEXES[i] + delta) % NUM_ICONS)
     );
     INDEXES.map((index) => console.log(ICON_MAP[index]));
-    // if (
-    //   (INDEXES[0] == INDEXES[1] || INDEXES[0] == INDEXES[1]) == INDEXES[2] ||
-    //   ((INDEXES[0] == INDEXES[1]) == INDEXES[2]) == INDEXES[3] ||
-    //   (((INDEXES[0] == INDEXES[1]) == INDEXES[2]) == INDEXES[3]) ==
-    //     INDEXES[4] ||
-    //   ((((INDEXES[0] == INDEXES[1]) == INDEXES[2]) == INDEXES[3]) ==
-    //     INDEXES[4]) ==
-    //     INDEXES[5]
-    // ) {
-    //   console.log("winnnnn");
-    // }
   });
 };
 
 BTN_SPIN.addEventListener("click", () => {
   cash -= BETS[INDEX_BET];
-  CREDIT_COMPONENT.textContent = cash;
   rollAll();
 
   BTN_SPIN.disabled = true;
