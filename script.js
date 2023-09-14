@@ -2,7 +2,7 @@ const ICON_WIDTH = 100,
   ICON_HEIGHT = 120,
   NUM_ICONS = 7,
   TIME_PER_ITEM = 25,
-  INDEXES = [0, 0, 0, 0, 0],
+  INDEXES = [0, 0, 0, 0],
   ICON_MAP = [
     "watermellon",
     "cherry",
@@ -17,6 +17,7 @@ const ICON_WIDTH = 100,
   ];
 let INDEX_BET = 0;
 let cash = 9000000;
+let price = 0;
 
 const CREDIT_COMPONENT = document.querySelector(".credit");
 const BTN_SPIN = document.querySelector("#button-spin");
@@ -28,23 +29,17 @@ function randomItems() {
   const randomNumber = Math.random() * 100; // Angka acak dari 1 hingga 100
   let digit;
 
-  if (randomNumber < 10) {
-    // 10% peluang untuk mendapatkan angka 6
+  if (randomNumber < 15) {
     digit = 6;
-  } else if (randomNumber < 25) {
-    // 15% peluang untuk mendapatkan angka 5
+  } else if (randomNumber < 30) {
     digit = 5;
-  } else if (randomNumber < 45) {
-    // 20% peluang untuk mendapatkan angka 4
+  } else if (randomNumber < 55) {
     digit = 4;
-  } else if (randomNumber < 70) {
-    // 25% peluang untuk mendapatkan angka 3
+  } else if (randomNumber < 80) {
     digit = 3;
-  } else if (randomNumber < 90) {
-    // 20% peluang untuk mendapatkan angka 2
+  } else if (randomNumber < 100) {
     digit = 2;
   } else {
-    // 10% peluang untuk mendapatkan angka 0 atau 1
     digit = Math.floor(Math.random() * 2);
   }
 
@@ -58,8 +53,8 @@ let convertRupiah = (num) => {
   });
   return formatter.format(num);
 };
+
 CREDIT_COMPONENT.textContent = convertRupiah(cash);
-// CREDIT_COMPONENT.textContent = cash;
 const roll = (reel, offset = 0) => {
   const delta = (offset + 2) * NUM_ICONS + randomItems();
   const style = getComputedStyle(reel),
@@ -82,21 +77,38 @@ const roll = (reel, offset = 0) => {
   });
 };
 
-const rollAll = () => {
+const rollAll = (bet) => {
   const REEL_LIST = document.querySelectorAll(".main-container > .reel");
 
   Promise.all([...REEL_LIST].map((reel, i) => roll(reel, i))).then((deltas) => {
-    deltas.forEach(
-      (delta, i) => (INDEXES[i] = (INDEXES[i] + delta) % NUM_ICONS)
-    );
+    deltas.forEach((delta, i) => {
+      INDEXES[i] = (INDEXES[i] + delta) % NUM_ICONS;
+    });
+
     INDEXES.map((index) => console.log(ICON_MAP[index]));
+    if (
+      INDEXES[0] == INDEXES[1] &&
+      INDEXES[1] == INDEXES[2] &&
+      INDEXES[2] == INDEXES[3]
+    ) {
+      price = bet * (INDEXES[0] + 1) * 1.5;
+    } else if (INDEXES[0] == INDEXES[1] && INDEXES[1] == INDEXES[2]) {
+      price = bet * (INDEXES[0] + 1) * 1.1;
+    } else if (INDEXES[0] == INDEXES[1]) {
+      price = bet * (INDEXES[0] + 1) * 0.7;
+    } else {
+      price = 0;
+    }
+    cash += price;
+    CREDIT_COMPONENT.textContent = convertRupiah(cash);
   });
 };
 
 BTN_SPIN.addEventListener("click", () => {
   cash -= BETS[INDEX_BET];
+  rollAll(BETS[INDEX_BET]);
+
   CREDIT_COMPONENT.textContent = convertRupiah(cash);
-  rollAll();
 
   BTN_SPIN.disabled = true;
   BTN_SPIN.classList.remove("button-active");
@@ -121,10 +133,3 @@ MIN_BET.addEventListener("click", () => {
     BET.textContent = BETS[INDEX_BET];
   }
 });
-
-// window.addEventListener("resize", () => {
-//   let width = window.innerWidth;
-//   let height = window.innerHeight;
-//   document.querySelector("#width-device").textContent = width;
-//   document.querySelector("#height-device").textContent = height;
-// });
