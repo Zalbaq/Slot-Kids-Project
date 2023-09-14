@@ -51,6 +51,13 @@ function randomItems() {
   return digit;
 }
 
+let convertRupiah = (num) => {
+  const formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  });
+  return formatter.format(num);
+};
 CREDIT_COMPONENT.textContent = convertRupiah(cash);
 // CREDIT_COMPONENT.textContent = cash;
 const roll = (reel, offset = 0) => {
@@ -88,6 +95,7 @@ const rollAll = () => {
 
 BTN_SPIN.addEventListener("click", () => {
   cash -= BETS[INDEX_BET];
+  CREDIT_COMPONENT.textContent = convertRupiah(cash);
   rollAll();
 
   BTN_SPIN.disabled = true;
