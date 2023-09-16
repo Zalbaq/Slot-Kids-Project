@@ -132,6 +132,15 @@ function getSpin(total) {
   }, 1500);
 }
 
+let disabledButton = (button, totalSpin) => {
+  button.classList.toggle("button-disabled");
+  button.disabled = true;
+  setTimeout(() => {
+    button.classList.toggle("button-disabled");
+    button.disabled = false;
+  }, 1500 * totalSpin);
+};
+
 BTN_SPIN.addEventListener("click", (event) => {
   let button = event.target;
 
@@ -143,12 +152,14 @@ BTN_SPIN_10.addEventListener("click", (event) => {
   let button = event.target;
 
   getSpin(10);
+  disabledButton(button, 10);
 });
 
 BTN_SPIN_100.addEventListener("click", (event) => {
   let button = event.target;
 
   getSpin(100);
+  disabledButton(button, 100);
 });
 
 PLUS_BET.addEventListener("click", () => {
