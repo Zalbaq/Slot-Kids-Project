@@ -160,8 +160,6 @@ let countSpin = (button, totalSpin) => {
       button.textContent = totalSpin;
     }
   }, TIME_SPIN);
-
-  // untuk mereset isi element setelah di decrement
 };
 
 BTN_SPIN.addEventListener("mousedown", (event) => {
@@ -177,9 +175,10 @@ BTN_SPIN.addEventListener("mouseup", (event) => {
     event.preventDefault;
   } else {
     clearTimeout(myTimeOut);
-
     getSpin(1);
     disabledButton(1);
+    BTN_SPIN_100.style.transform = "translateY(75px)";
+    BTN_SPIN_10.style.transform = "translateY(37.5px)";
   }
   isButtonHeld = false;
 });
