@@ -3,6 +3,7 @@ const ICON_WIDTH = 100,
   NUM_ICONS = 7,
   TIME_PER_ITEM = 25,
   INDEXES = [0, 0, 0, 0],
+  TIME_SPIN = TIME_PER_ITEM * 10 * INDEXES.length + 200,
   ICON_MAP = [
     "watermellon",
     "cherry",
@@ -18,8 +19,11 @@ const ICON_WIDTH = 100,
 let INDEX_BET = 0;
 let cash = 9000000000000;
 let price = 0;
+let myTimeOut;
+let isButtonHeld;
 
 const CREDIT_COMPONENT = document.querySelector(".credit");
+const BTN_SPIN_ALL = [...document.querySelectorAll(".spin button")];
 const BTN_SPIN = document.querySelector("#button-spin"),
   BTN_SPIN_10 = document.querySelector("#button-spin-10"),
   BTN_SPIN_100 = document.querySelector("#button-spin-100");
@@ -49,7 +53,7 @@ function randomItems() {
   return digit;
 }
 
-let convertRupiah = (num) => {
+let setRupiah = (num) => {
   const formatter = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -57,8 +61,8 @@ let convertRupiah = (num) => {
   return formatter.format(num);
 };
 
-CREDIT_COMPONENT.textContent = convertRupiah(cash);
-BET.textContent = convertRupiah(BETS[INDEX_BET]);
+CREDIT_COMPONENT.textContent = setRupiah(cash);
+BET.textContent = setRupiah(BETS[INDEX_BET]);
 
 const roll = (reel, offset = 0) => {
   const delta = (offset + 2) * NUM_ICONS + randomItems();
@@ -90,7 +94,7 @@ const rollAll = (bet) => {
       INDEXES[i] = (INDEXES[i] + delta) % NUM_ICONS;
     });
 
-    INDEXES.map((index) => console.log(ICON_MAP[index]));
+    // INDEXES.map((index) => console.log(ICON_MAP[index]));
 
     // Checking winning condition
     if (
@@ -107,7 +111,7 @@ const rollAll = (bet) => {
       price = 0;
     }
     cash += price;
-    CREDIT_COMPONENT.textContent = convertRupiah(cash);
+    CREDIT_COMPONENT.textContent = setRupiah(cash);
   });
 };
 
@@ -123,55 +127,86 @@ function getSpin(total) {
       cash -= BETS[INDEX_BET];
       rollAll(BETS[INDEX_BET]);
 
-      CREDIT_COMPONENT.textContent = convertRupiah(cash);
+      CREDIT_COMPONENT.textContent = setRupiah(cash);
       count++;
     } else {
       // Jika spin telah mencapai batas maksimal
       clearInterval(myInterval);
     }
-  }, 1500);
+  }, TIME_SPIN);
 }
 
-let disabledButton = (button, totalSpin) => {
-  button.classList.toggle("button-disabled");
-  button.disabled = true;
-  setTimeout(() => {
+let disabledButton = (totalSpin) => {
+  BTN_SPIN_ALL.map((button) => {
     button.classList.toggle("button-disabled");
-    button.disabled = false;
-  }, 1500 * totalSpin);
+    button.disabled = true;
+  });
+  setTimeout(() => {
+    BTN_SPIN_ALL.map((button) => {
+      button.classList.toggle("button-disabled");
+      button.disabled = false;
+    });
+  }, TIME_SPIN * totalSpin);
 };
 
-BTN_SPIN.addEventListener("click", (event) => {
-  let button = event.target;
+BTN_SPIN.addEventListener("mousedown", (event) => {
+  myTimeOut = setTimeout(() => {
+    BTN_SPIN_10.style.transform = "translateY(0px)";
+    BTN_SPIN_100.style.transform = "translateY(0px)";
+    isButtonHeld = true;
+  }, 500);
+});
 
-  getSpin(1);
-  disabledButton(button, 1);
+BTN_SPIN.addEventListener("mouseup", (event) => {
+  if (isButtonHeld) {
+    event.preventDefault;
+  } else {
+    clearTimeout(myTimeOut);
+
+    getSpin(1);
+    disabledButton(1);
+  }
+  isButtonHeld = false;
 });
 
 BTN_SPIN_10.addEventListener("click", (event) => {
-  let button = event.target;
+  let totalSpin = 10;
 
   getSpin(10);
-  disabledButton(button, 10);
+  disabledButton(totalSpin);
+  BTN_SPIN_10.style.zIndex = 10;
+  BTN_SPIN_100.style.transform = "translateY(75px)";
+  BTN_SPIN_10.style.transform = "translateY(37.5px)";
+
+  setTimeout(() => {
+    BTN_SPIN_10.style.zIndex = 0;
+  }, TIME_SPIN * totalSpin);
 });
 
 BTN_SPIN_100.addEventListener("click", (event) => {
-  let button = event.target;
+  let totalSpin = 100;
 
   getSpin(100);
-  disabledButton(button, 100);
+  disabledButton(totalSpin);
+  BTN_SPIN_100.style.zIndex = 10;
+  BTN_SPIN_100.style.transform = "translateY(75px)";
+  BTN_SPIN_10.style.transform = "translateY(37.5px)";
+
+  setTimeout(() => {
+    BTN_SPIN_100.style.zIndex = 0;
+  }, TIME_SPIN * totalSpin);
 });
 
 PLUS_BET.addEventListener("click", () => {
   if (INDEX_BET < BETS.length - 1) {
     INDEX_BET++;
-    BET.textContent = convertRupiah(BETS[INDEX_BET]);
+    BET.textContent = setRupiah(BETS[INDEX_BET]);
   }
 });
 
 MIN_BET.addEventListener("click", () => {
   if (INDEX_BET > 0) {
     INDEX_BET--;
-    BET.textContent = convertRupiah(BETS[INDEX_BET]);
+    BET.textContent = setRupiah(BETS[INDEX_BET]);
   }
 });
