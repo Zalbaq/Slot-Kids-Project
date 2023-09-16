@@ -149,6 +149,21 @@ let disabledButton = (totalSpin) => {
   }, TIME_SPIN * totalSpin);
 };
 
+let countSpin = (button, totalSpin) => {
+  let tmpTotalSpin = totalSpin;
+
+  button.textContent = --tmpTotalSpin;
+  let myInterval = setInterval(() => {
+    button.textContent = --tmpTotalSpin;
+    if (tmpTotalSpin < 0) {
+      clearInterval(myInterval);
+      button.textContent = totalSpin;
+    }
+  }, TIME_SPIN);
+
+  // untuk mereset isi element setelah di decrement
+};
+
 BTN_SPIN.addEventListener("mousedown", (event) => {
   myTimeOut = setTimeout(() => {
     BTN_SPIN_10.style.transform = "translateY(0px)";
@@ -174,6 +189,8 @@ BTN_SPIN_10.addEventListener("click", (event) => {
 
   getSpin(10);
   disabledButton(totalSpin);
+  countSpin(BTN_SPIN_10, totalSpin);
+
   BTN_SPIN_10.style.zIndex = 10;
   BTN_SPIN_100.style.transform = "translateY(75px)";
   BTN_SPIN_10.style.transform = "translateY(37.5px)";
@@ -188,6 +205,8 @@ BTN_SPIN_100.addEventListener("click", (event) => {
 
   getSpin(100);
   disabledButton(totalSpin);
+  countSpin(BTN_SPIN_100, totalSpin);
+
   BTN_SPIN_100.style.zIndex = 10;
   BTN_SPIN_100.style.transform = "translateY(75px)";
   BTN_SPIN_10.style.transform = "translateY(37.5px)";
