@@ -34,29 +34,16 @@ section{
 .credit{
     position: relative;
     height: 2rem;
-    width: 10rem;
+    /* width: 20rem; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
     color: #fff;
-    padding:0 0 0 20px;
+    padding:0 20px;
     border-radius: 15px;
     background-color: #900C3F;
     border: 2px solid #F8DE22;
-}
-.credit button{
-    position: absolute;
-    right: -10px;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    border: none;
-    transition:.2s ease-in ;
-
-}
-.credit button:active{
-    transform: scale(.8);
 }
 
 .top .settings{
@@ -131,7 +118,7 @@ section{
     align-items: center;
 }
 .spin-container .bet{
-    width: 10rem;
+    /* width: 10rem; */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -141,7 +128,9 @@ section{
     border: none;
 }
 .bet span{
+    padding: 0 .5rem;
     color: white;
+    font-size: 14px;
 }
 .spin-container .bet button{
     height: 30px;
@@ -158,24 +147,53 @@ section{
     transform: translate(4px,4px);
     box-shadow: none;
 }
-.button-active{
+.spin-container .spin{
+    display: flex;
+    flex-direction: column;
+}
+.spin-container .spin .option-spin{
+    display: flex;
+    /* background-color: blue; */
+    /* height: 4.5rem; */
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 5rem;
+}
+.spin-container .spin .option-spin  button{
     height: 35px;
     width: 100px;
-    box-shadow: 5px 5px #F8DE22;
-    border-radius: 15px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 1px 0;
+    transition: ease-in 0.1s;
+}
+
+.spin-container .spin .option-spin button:nth-child(1){
+    transform: translateY(75px);
+}
+.spin-container .spin .option-spin button:nth-child(2){
+    transform: translateY(37.5px);
+}
+.spin button{
+    cursor: pointer;
+}
+.spin > #button-spin{
+    z-index: 2;
+    height: 35px;
+    width: 100px;
+    border-radius: 5px;
     font-size: 18px;
     font-weight: 600;
 }
-.button-disabled{
+.spin .button-disabled{
+    background-color: #F8DE22;
+    color: white;
     height: 35px;
     width: 100px;
-    transform: translate(5px,5px);
-    border-radius: 15px;
+    border-radius: 5px;
     font-size: 18px;
     font-weight: 600;
-    box-shadow: none;
-}
-.button-active:active{
-    transform: translate(10px,10px);
     box-shadow: none;
 }
